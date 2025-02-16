@@ -8,12 +8,16 @@ export function createEmbedForAskCommand(user, prompt, response) {
         prompt = prompt.slice(0, 250) + "..."
     }
 
+    response = typeof response === "string" ? response : JSON.stringify(response);
+
     const embed = new EmbedBuilder()
         .setColor(0x0099FF)
         .setAuthor({ name: user.username })
         .setTitle(prompt)
-        .setDescription(response.slice(0, Math.min(response.length, 4096)))
-
+        .setDescription((response && typeof response.slice === 'function') 
+        ? response.slice(0, Math.min(response.length, 4096)) 
+        : "No valid response received.")
+    
     if (response.length > 4096) {
         response = response.slice(4096, response.length)
         for (let i = 0; i < 10 && response.length > 0; i++) {
@@ -36,17 +40,20 @@ export function createEmbedsForImageCommand(user, prompt, images) {
         prompt = prompt.slice(0, 250) + "..."
     }
 
-    if (images.length == 0) {
+    if (!images || images.length === 0) {
         embeds.push(
             new EmbedBuilder()
                 .setColor(0x0099FF)
                 .setAuthor({ name: user.username })
                 .setTitle(prompt)
                 .setDescription("Image didn't generate for this prompt 😔")
-        )
+        );
+        return { embeds, files };
     }
+    
 
     for (let i = 0; i < images.length; i++) {
+        
         const image = images[i];
         let embed = new EmbedBuilder().setURL("https://onuryildiz.dev")
 
@@ -56,6 +63,19 @@ export function createEmbedsForImageCommand(user, prompt, images) {
                 .setTitle(prompt)
         }
 
+        if (!image || typeof image !== "string" || !image.includes(",")) {
+            return {
+                embeds: [
+                    new EmbedBuilder()
+                        .setColor(0x0099FF)
+                        .setAuthor({ name: `${user.username} remixed ${userRemix.username}` })
+                        .setTitle(prompt)
+                        .setDescription("No valid image provided for remixing.")
+                ],
+                files: []
+            };
+        }
+        
         let data = image.split(",")[1]
         const buffer = Buffer.from(data, "base64")
 
@@ -95,6 +115,11 @@ export function createEmbedForRemixCommand(user, userRemix, prompt, image) {
 
 export async function splitAndSendResponse(resp, user) {
     let tryCount = 3;
+    if (!resp || typeof resp !== "string") {
+        console.error("Invalid response received, aborting message sending.");
+        return;
+    }
+    
     while (resp.length > 0 && tryCount > 0) {
         try {
             let end = Math.min(MAX_RESPONSE_CHUNK_LENGTH, resp.length)
