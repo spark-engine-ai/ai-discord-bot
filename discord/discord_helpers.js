@@ -64,17 +64,15 @@ export function createEmbedsForImageCommand(user, prompt, images) {
         }
 
         if (!image || typeof image !== "string" || !image.includes(",")) {
-            return {
-                embeds: [
-                    new EmbedBuilder()
-                        .setColor(0x0099FF)
-                        .setAuthor({ name: `${user.username} remixed ${userRemix.username}` })
-                        .setTitle(prompt)
-                        .setDescription("No valid image provided for remixing.")
-                ],
-                files: []
-            };
-        }
+            embeds.push(
+                new EmbedBuilder()
+                    .setColor(0x0099FF)
+                    .setAuthor({ name: user.username })
+                    .setTitle(prompt)
+                    .setDescription("Invalid image format, skipping this image.")
+            );
+            continue;
+        }        
         
         let data = image.split(",")[1]
         const buffer = Buffer.from(data, "base64")
