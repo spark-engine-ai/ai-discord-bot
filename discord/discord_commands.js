@@ -63,6 +63,18 @@ export const commands = [
                 required: true
             }
         ]
+    },
+    {
+        name: 'docs',
+        description: 'Call our docs and find out how to use each of our nodes',
+        options: [
+            {
+                name: "prompt",
+                description: "Your prompt",
+                type: 3,
+                required: true
+            }
+        ]
     }
 ];
 
