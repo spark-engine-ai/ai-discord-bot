@@ -164,7 +164,7 @@ export async function generateInteractionReply(interaction, user, question, comm
                 .setTitle(question)
                 .setDescription(content.replace(url ? url : "", "").trim() || "Video generated");
             if (url) {
-                embed.setVideo({ url: url });
+                embed.setURL(url);;
             }
         } else {
             // Default for chat/search commands
