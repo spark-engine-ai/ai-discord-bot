@@ -18,7 +18,7 @@ export const commands = [
     },
     {
         name: 'video',
-        description: 'Ask video-related questions',
+        description: 'Generate a 5s long video',
         options: [
             {
                 name: "prompt",
@@ -30,7 +30,7 @@ export const commands = [
     },
     {
         name: 'search',
-        description: 'Perform a search query',
+        description: 'Perform a search query using Bing and AI models',
         options: [
             {
                 name: "search",
@@ -42,7 +42,7 @@ export const commands = [
     },
     {
         name: 'image',
-        description: 'Generate an image',
+        description: 'Generate an image using DALLE-3',
         options: [
             {
                 name: "prompt",
@@ -66,7 +66,7 @@ export const commands = [
     },
     {
         name: 'docs',
-        description: 'Call our docs and find out how to use each of our nodes',
+        description: 'Call our docs and find out how to use each of our nodes on Spark Engine',
         options: [
             {
                 name: "prompt",
@@ -165,10 +165,25 @@ export async function handle_interaction_music(interaction) {
     }
 }
 
+export async function handle_interaction_docs(interaction) {
+    const user = interaction.user;
+    const question = interaction.options.getString("docs");
+    await interaction.deferReply();
+
+    try {
+        askQuestion(question, async (content) => {
+            generateInteractionReply(interaction, user, question, "chat", content);
+        }, { commandType: "docs" });
+    } catch (e) {
+        console.error(e);
+    }
+}
+
 export const commandExecuters = {
     chat: handle_interaction_ask,
     video: handle_interaction_video,
     search: handle_interaction_search,
     image: handle_interaction_image,
-    music: handle_interaction_music,
+    docs: handle_interaction_docs,
+    // music: handle_interaction_music,
 };
