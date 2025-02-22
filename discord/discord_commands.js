@@ -184,7 +184,7 @@ export const commandExecuters = {
     video: handle_interaction_video,
     search: handle_interaction_search,
     image: handle_interaction_image,
-    // docs: handle_interaction_docs,
+    docs: handle_interaction_docs,
     
     // music: handle_interaction_music,
 };

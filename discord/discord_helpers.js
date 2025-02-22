@@ -4,9 +4,6 @@ import config from '../config/config.js';
 export const MAX_RESPONSE_CHUNK_LENGTH = 1500
 
 export function createEmbedForAskCommand(user, prompt, response) {
-    if (prompt.length >= 250) {
-        prompt = prompt.slice(0, 250) + "..."
-    }
 
     response = typeof response === "string" ? response : JSON.stringify(response);
 
@@ -35,10 +32,6 @@ export function createEmbedForAskCommand(user, prompt, response) {
 export function createEmbedsForImageCommand(user, prompt, images) {
     let embeds = []
     let files = []
-
-    if (prompt.length >= 250) {
-        prompt = prompt.slice(0, 250) + "..."
-    }
 
     if (!images || images.length === 0) {
         embeds.push(
@@ -91,9 +84,6 @@ export function createEmbedsForImageCommand(user, prompt, images) {
 }
 
 export function createEmbedForRemixCommand(user, userRemix, prompt, image) {
-    if (prompt.length >= 250) {
-        prompt = prompt.slice(0, 250) + "..."
-    }
 
     const embed = new EmbedBuilder()
         .setColor(0x0099FF)
