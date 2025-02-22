@@ -31,13 +31,14 @@ An AI-powered chatbot for Discord using **Spark Engine** to handle chat, search,
    ![Create a Discord Bot](screenshots/image-1.png)  
 4. Under **OAuth2 → Copy Client ID** (add it to `DISCORD_CLIENT_ID` in your `.env`)  
    ![Get Client ID](screenshots/image-2.png)  
-5. Select `bot` & `applications.commands`, then choose permissions (e.g., Send Messages, Read Messages, etc.)  
-6. Go to [Spark Engine](https://sparkengine.ai) and create an account  
-7. Create a new project on Spark Engine and upload the `ai-discord-bot.spk` file found at the root of this project  
+5. Select the `bot` tab, and under `Privledged Gateway Intents` toggle on `Message Content Intent`
+6. Scroll down to `applications.commands`, then choose permissions (e.g., Send Messages, Read Messages, etc.)  
+7. Go to [Spark Engine](https://sparkengine.ai) and create an account
+8. Create a new project on Spark Engine and upload the `ai-discord-bot.spk` file found at the root of this project  
    ![Upload Discord Bot Project](screenshots/image-3.png)  
-8. Copy your **Project ID** by clicking the **"API"** button inside your project menu on Spark Engine (add it to `PROJECT_ID` in your `.env`). This will be the AI flow that your bot calls, and you can modify it as needed.  
-9. Go to [Your API Keys](https://sparkengine.ai/account/api-keys) and add it to `SPARK_ENGINE_API_KEY` in your `.env`.  
-10. Once you’ve deployed and run the bot (see below), invite it to your Discord server!  
+9. Copy your **Project ID** by clicking the **"API"** button inside your project menu on Spark Engine (add it to `PROJECT_ID` in your `.env`). This will be the AI flow that your bot calls, and you can modify it as needed.  
+10. Go to [Your API Keys](https://sparkengine.ai/account/api-keys) and add it to `SPARK_ENGINE_API_KEY` in your `.env`.  
+11. Once you’ve deployed and run the bot (see below), invite it to your Discord server!  
 
 ---
 
