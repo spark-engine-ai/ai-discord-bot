@@ -33,7 +33,7 @@ export const commands = [
         description: 'Perform a search query using Bing and AI models',
         options: [
             {
-                name: "search",
+                name: "prompt",
                 description: "Your search",
                 type: 3,
                 required: true
@@ -123,7 +123,7 @@ export async function handle_interaction_video(interaction) {
 
 export async function handle_interaction_search(interaction) {
     const user = interaction.user;
-    const question = interaction.options.getString("search");
+    const question = interaction.options.getString("prompt");
     await interaction.deferReply();
 
     try {
@@ -167,7 +167,7 @@ export async function handle_interaction_music(interaction) {
 
 export async function handle_interaction_docs(interaction) {
     const user = interaction.user;
-    const question = interaction.options.getString("docs");
+    const question = interaction.options.getString("prompt");
     await interaction.deferReply();
 
     try {
@@ -184,7 +184,7 @@ export const commandExecuters = {
     video: handle_interaction_video,
     search: handle_interaction_search,
     image: handle_interaction_image,
-    docs: handle_interaction_docs,
+    // docs: handle_interaction_docs,
     
     // music: handle_interaction_music,
 };
